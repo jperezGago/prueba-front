@@ -16,7 +16,7 @@ Tienes que activar el interruptor que se encuentra a la derecha de "Share"
 ![modo-dev.png](modo-dev.png)
 
 Cuando inicies la prueba técnica debes crearte un nuevo repositorio en github y pasarnos el enlace
-al correo <a href="mailto:dev@uelzpay.com">dev@uelzpay.com</a>
+al correo <a href="mailto:dev@uelzpay.com">dev@uelzpay.com</a>. Tambien nos puedes mandar una invitación a tu repositorio a tecnologia@uelzpay.com y a irene@uelzpay.com
 
 Te sugerimos que empieces implementando la mecánica básica del ejercicio y posteriormente añadas los detalles y mejoras
 que consideres, de esta manera tendrás algo revisable aunque se te acabe el tiempo.
