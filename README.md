@@ -7,7 +7,7 @@ Aspectos que nos facilitan asegurar la calidad, revisar, modificar y mantener el
 Para realizar el ejercicio te proporcionaremos un proyecto inicial de react en el que debes crear el diseño publicado en
 este enlace de figma
 
-https://kutt.it/test_figma
+[Figma](https://www.figma.com/file/rUw71oRzI6UfR7CaiE06CJ/Test-Figma?type=design&node-id=2%3A5&mode=design&t=qkQfEvMTWvGIuRjD-1)
 
 Para poder habilitar el modo dev tienes que crear una cuenta en figma. Puedes usar el login social si te parece más sencillo.
 
