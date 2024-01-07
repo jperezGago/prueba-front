@@ -12,11 +12,12 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'react-hooks', 'react-refresh'],
   rules: {
+    'import/no-absolute-path': 'off',
+    '@typescript-eslint/non-nullable-type-assertion-style': 'off',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
     'react/react-in-jsx-scope': 'off',
-    'import/no-absolute-path': 'off'
   },
 }
