@@ -1,8 +1,19 @@
-import { Card } from '../components'
-import { useGame } from '../hooks'
+import { Card, FinishModal } from '../components'
+import { useGame, useFinishModal } from '../hooks'
 
-const Game: React.FC = () => {
-  const { cardsInfo, onBackCardPress } = useGame()
+interface Props {
+  getGameTime: () => string
+  restartTime: () => void
+  resetGame: () => void
+}
+
+const Game: React.FC<Props> = ({ getGameTime, restartTime, resetGame }) => {
+  const { cardsInfo, resetCardsInfo, onBackCardPress } = useGame()
+  const {
+    isModalVisible,
+    onFinishPressed,
+    onClosePressed
+  } = useFinishModal({ cardsInfo, resetCardsInfo, restartTime, resetGame })
 
   return (
     <main className='min-h-screen bg-green-soft-uelz grid place-content-center'>
@@ -15,6 +26,13 @@ const Game: React.FC = () => {
           />
         ))}
       </section>
+      {
+        isModalVisible && <FinishModal
+          time={getGameTime()}
+          onFinishPressed={onFinishPressed}
+          onClosePressed={onClosePressed}
+        />
+      }
     </main>
   )
 }

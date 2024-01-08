@@ -1,23 +1,31 @@
 import { useState, useEffect } from 'react'
 import { type ICardInfo, type OnBackCardPressType } from '../types'
-import SHUFFLED_EMOJI_LIST from '../utils/emojis'
+import EMOJI_LIST from '../utils/emojis'
+import { getShuffledArray } from '../utils'
 
 interface IUseGame {
   cardsInfo: ICardInfo[]
   onBackCardPress: OnBackCardPressType
+  resetCardsInfo: () => void
 }
 
-const useGame = (): IUseGame => {
-  const initalCardsInfo: ICardInfo[] = SHUFFLED_EMOJI_LIST.map((emoji, index) => ({
+const getShuffleCardsInfo = (): ICardInfo[] => {
+  const suffledEmojiList = getShuffledArray(EMOJI_LIST)
+  const initalCardsInfo: ICardInfo[] = suffledEmojiList.map((emoji, index) => ({
     id: index + 1,
     emoji,
     isVisible: false,
     matched: false
   }))
-  const [cardsInfo, setCardsInfo] = useState(initalCardsInfo)
+
+  return initalCardsInfo
+}
+
+const useGame = (): IUseGame => {
+  const shuffledCardsInfo = getShuffleCardsInfo()
+  const [cardsInfo, setCardsInfo] = useState(shuffledCardsInfo)
 
   useEffect(() => {
-    // TODO: Comentar lógica
     const unflipUnmatchedCardsInfo = (): void => {
       const unmatchedCardsInfo = cardsInfo.map(cardInfo => {
         return !cardInfo.matched ? { ...cardInfo, isVisible: false } : cardInfo
@@ -53,7 +61,7 @@ const useGame = (): IUseGame => {
 
     // Si las 2 cartas giradas son iguales:
     updateMatchedCardsInfo() // Se setea el campo matched = true
-  }, [cardsInfo, initalCardsInfo])
+  }, [cardsInfo])
 
   const updateCardsInfo = (id: number): void => {
     const updatedCardsInfo = cardsInfo.map(cardInfo => {
@@ -71,7 +79,17 @@ const useGame = (): IUseGame => {
     updateCardsInfo(id)
   }
 
-  return { cardsInfo, onBackCardPress }
+  const resetCardsInfo = (): void => {
+    const shuffledCardsInfo = getShuffleCardsInfo()
+
+    setCardsInfo(shuffledCardsInfo)
+  }
+
+  return {
+    cardsInfo,
+    onBackCardPress,
+    resetCardsInfo
+  }
 }
 
 export default useGame
