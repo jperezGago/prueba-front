@@ -1,10 +1,17 @@
 import { BackCard, FrontCard } from './'
-import { type ICard } from '../types'
+import { type ICardInfo, type OnBackCardPressType } from '../types'
 
 interface Props {
-  cardInfo: ICard
+  cardInfo: ICardInfo
+  onBackCardPress: OnBackCardPressType
 }
 
-const Card: React.FC<Props> = ({ cardInfo }) => cardInfo.visible ? <FrontCard cardInfo={cardInfo}/> : <BackCard cardInfo={cardInfo}/>
+const Card: React.FC<Props> = ({ cardInfo, onBackCardPress }) => {
+  const { id, emoji, isVisible } = cardInfo
+
+  return isVisible
+    ? <FrontCard emoji={emoji}/>
+    : <BackCard id={id} onBackCardPress={onBackCardPress}/>
+}
 
 export default Card
