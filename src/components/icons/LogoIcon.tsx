@@ -1,4 +1,4 @@
-const Logo: React.FC = () => (
+const LogoIcon: React.FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={354}
@@ -80,4 +80,4 @@ const Logo: React.FC = () => (
   </svg>
 )
 
-export default Logo
+export default LogoIcon
