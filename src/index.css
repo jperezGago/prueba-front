@@ -5,6 +5,7 @@
 @layer base {
   body {
     font-family: 'Inter Variable', system-ui, sans-serif;
+    @apply text-white;
   }
   h1 {
     @apply text-[30px] font-normal leading-9;
