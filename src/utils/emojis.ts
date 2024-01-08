@@ -1,4 +1,3 @@
-import { getShuffledArray } from '.'
 import {
   DisguisedFace,
   CowboyHatFace,
@@ -23,6 +22,5 @@ const EMOJIS = [
   UnamusedFace
 ]
 const EMOJI_LIST = [...EMOJIS, ...EMOJIS]
-const SHUFFLED_EMOJI_LIST = getShuffledArray(EMOJI_LIST)
 
-export default SHUFFLED_EMOJI_LIST
+export default EMOJI_LIST

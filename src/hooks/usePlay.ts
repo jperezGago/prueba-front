@@ -1,12 +1,32 @@
 import { useState } from 'react'
+import { getFormattedGameTime } from '../utils'
 
-const usePlay = (): [boolean, () => void] => {
+interface IUsePlay {
+  play: boolean
+  getGameTime: () => string
+  onPlay: () => void
+  restartTime: () => void
+  resetGame: () => void
+}
+
+const usePlay = (): IUsePlay => {
   const [play, setPlay] = useState(false)
+  const [startTime, setStartTime] = useState(new Date())
 
-  return [
+  return {
     play,
-    () => { setPlay(true) }
-  ]
+    getGameTime: () => getFormattedGameTime(startTime),
+    onPlay: () => {
+      setPlay(true)
+      setStartTime(new Date())
+    },
+    restartTime: () => {
+      setStartTime(new Date())
+    },
+    resetGame: () => {
+      setPlay(false)
+    }
+  }
 }
 
 export default usePlay
