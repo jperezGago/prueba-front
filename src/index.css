@@ -11,3 +11,9 @@
     @apply text-[30px] font-normal leading-9;
   }
 }
+
+@layer components {
+  .card {
+    @apply size-[124px] border-4 rounded-2xl border-white shadow-aquamarine-uelz shadow-[0px_2px_8px_0px] grid place-content-center;
+  }
+}
