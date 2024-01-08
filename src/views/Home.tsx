@@ -6,7 +6,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ onPlay }) => {
   return (
-    <main className='bg-blue-uelz min-h-screen grid place-content-center text-white text-center'>
+    <main className='bg-blue-dark-uelz min-h-screen grid place-content-center text-center'>
       <section>
         <Logo/>
         <h1 className='mb-[60px]'>Test de memoria</h1>
