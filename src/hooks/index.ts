@@ -1,3 +1,3 @@
 export { default as usePlay } from './usePlay'
 export { default as useGame } from './useGame'
-export { default as useFinishModal } from './useFinishModal'
+export { default as useFinishGame } from './useFinishGame'

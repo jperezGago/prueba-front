@@ -14,7 +14,7 @@ interface IUseFinishModal {
   onClosePressed: () => void
 }
 
-const useFinishModal = ({
+const useFinishGame = ({
   cardsInfo,
   resetCardsInfo,
   restartTime,
@@ -42,4 +42,4 @@ const useFinishModal = ({
   }
 }
 
-export default useFinishModal
+export default useFinishGame
