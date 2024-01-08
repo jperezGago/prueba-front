@@ -1,3 +1,6 @@
+export { default as PrimaryButton } from './PrimaryButton'
+export { default as IconButton } from './IconButton'
 export { default as Card } from './Card'
 export { default as FrontCard } from './FrontCard'
 export { default as BackCard } from './BackCard'
+export { default as FinishModal } from './FinishModal'
