@@ -1,9 +1,9 @@
 import { BackCard, FrontCard } from './'
-import { type ICardInfo, type OnBackCardPressType } from '../types'
+import { type ICardInfo } from '../types'
 
 interface Props {
   cardInfo: ICardInfo
-  onBackCardPress: OnBackCardPressType
+  onBackCardPress: (id: number) => void
 }
 
 const Card: React.FC<Props> = ({ cardInfo, onBackCardPress }) => {

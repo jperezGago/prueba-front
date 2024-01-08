@@ -1,8 +1,6 @@
-import { type OnBackCardPressType } from '../types'
-
 interface Props {
   id: number
-  onBackCardPress: OnBackCardPressType
+  onBackCardPress: (id: number) => void
 }
 
 const BackCard: React.FC<Props> = ({ id, onBackCardPress }) => (

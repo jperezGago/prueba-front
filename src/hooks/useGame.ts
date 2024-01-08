@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { type ICardInfo, type OnBackCardPressType } from '../types'
+import { type ICardInfo } from '../types'
 import EMOJI_LIST from '../utils/emojis'
 import { getShuffledArray } from '../utils'
 
 interface IUseGame {
   cardsInfo: ICardInfo[]
-  onBackCardPress: OnBackCardPressType
+  onBackCardPress: (id: number) => void
   resetCardsInfo: () => void
 }
 
@@ -71,7 +71,7 @@ const useGame = (): IUseGame => {
     setCardsInfo(updatedCardsInfo)
   }
 
-  const onBackCardPress: OnBackCardPressType = (id: number) => {
+  const onBackCardPress = (id: number): void => {
     const notMatchedflippedCards = cardsInfo.filter(cardInfo => cardInfo.isVisible && !cardInfo.matched)
 
     if (notMatchedflippedCards.length >= 2) return
