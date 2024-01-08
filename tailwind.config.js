@@ -15,8 +15,9 @@ export default {
         'green-dark-uelz': '#0CB075',
         'yellow-soft-uelz': '#FFFBDE',
         'aquamarine-uelz': '#A9DACC',
-        'gra-softer-uelz': '#DBDDE0',
-        'gray-soft-uelz': '#9CA3AF'
+        'gray-softer-uelz': '#DBDDE0',
+        'gray-soft-uelz': '#9CA3AF',
+        'gray-dark-uelz': '#504A4A'
       }
     }
   },
