@@ -1,5 +1,7 @@
-export interface ICard {
+export interface ICardInfo {
   id: number
   emoji: string
-  visible: boolean
+  isVisible: boolean
+  matched: boolean
 }
+export type OnBackCardPressType = (number) => void
