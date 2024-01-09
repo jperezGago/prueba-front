@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { type ICardInfo } from '../types'
+import { resetStorage } from '../utils/storage'
 
 interface IUseFinishModalParams {
   cardsInfo: ICardInfo[]
@@ -33,10 +34,12 @@ const useFinishGame = ({
     onFinishPressed: () => {
       restartTime()
       resetCardsInfo()
+      resetStorage()
       setModalVisible(false)
     },
     onClosePressed: () => {
       resetGame()
+      resetStorage()
       setModalVisible(false)
     }
   }
