@@ -1,4 +1,4 @@
-import { Card, FinishModal } from '../components'
+import { Board, FinishModal } from '../components'
 import { useGame, useFinishGame } from '../hooks'
 import { getFormattedHourFromTotalSeconds } from '../utils'
 
@@ -10,13 +10,7 @@ interface Props {
 
 const Game: React.FC<Props> = ({ startTime, restartTime, resetPlay }) => {
   const { cardsInfo, resetCardsInfo, onBackCardPress } = useGame()
-  const {
-    isGameFinished,
-    isRecordTime,
-    gameTime,
-    restartGame,
-    resetGame
-  } = useFinishGame({
+  const { isGameFinished, isRecordTime, gameTime, restartGame, resetGame } = useFinishGame({
     cardsInfo,
     startTime,
     resetCardsInfo,
@@ -26,15 +20,7 @@ const Game: React.FC<Props> = ({ startTime, restartTime, resetPlay }) => {
 
   return (
     <main className='min-h-screen bg-green-soft-uelz grid place-content-center'>
-      <section className='grid grid-cols-6 gap-[36px]'>
-        {cardsInfo.map(cardInfo => (
-          <Card
-            key={cardInfo.id}
-            cardInfo={cardInfo}
-            onBackCardPress={onBackCardPress}
-          />
-        ))}
-      </section>
+      <Board cardsInfo={cardsInfo} onBackCardPress={onBackCardPress}/>
       {
         isGameFinished && <FinishModal
           time={getFormattedHourFromTotalSeconds(gameTime)}
