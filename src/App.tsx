@@ -2,15 +2,15 @@ import { usePlay } from './hooks'
 import { Home, Game } from './views'
 
 const App: React.FC = () => {
-  const { play, getGameTime, onPlay, restartTime, resetGame } = usePlay()
+  const { play, startTime, startGame, restartTime, resetPlay } = usePlay()
 
   return play
     ? <Game
-      getGameTime={getGameTime}
+      startTime={startTime}
       restartTime={restartTime}
-      resetGame={resetGame}
+      resetPlay={resetPlay}
     />
-    : <Home onPlay={onPlay}/>
+    : <Home onPlay={startGame}/>
 }
 
 export default App
