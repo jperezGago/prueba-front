@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { type ICardInfo } from '../types'
+import { resetStorage } from '../utils/storage'
 
 interface IUseFinishModalParams {
   cardsInfo: ICardInfo[]
@@ -14,7 +15,7 @@ interface IUseFinishModal {
   onClosePressed: () => void
 }
 
-const useFinishModal = ({
+const useFinishGame = ({
   cardsInfo,
   resetCardsInfo,
   restartTime,
@@ -33,13 +34,15 @@ const useFinishModal = ({
     onFinishPressed: () => {
       restartTime()
       resetCardsInfo()
+      resetStorage()
       setModalVisible(false)
     },
     onClosePressed: () => {
       resetGame()
+      resetStorage()
       setModalVisible(false)
     }
   }
 }
 
-export default useFinishModal
+export default useFinishGame

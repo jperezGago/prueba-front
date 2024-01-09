@@ -1,5 +1,5 @@
 import { Card, FinishModal } from '../components'
-import { useGame, useFinishModal } from '../hooks'
+import { useGame, useFinishGame } from '../hooks'
 
 interface Props {
   getGameTime: () => string
@@ -13,7 +13,7 @@ const Game: React.FC<Props> = ({ getGameTime, restartTime, resetGame }) => {
     isModalVisible,
     onFinishPressed,
     onClosePressed
-  } = useFinishModal({ cardsInfo, resetCardsInfo, restartTime, resetGame })
+  } = useFinishGame({ cardsInfo, resetCardsInfo, restartTime, resetGame })
 
   return (
     <main className='min-h-screen bg-green-soft-uelz grid place-content-center'>

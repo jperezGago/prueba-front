@@ -4,4 +4,3 @@ export interface ICardInfo {
   isVisible: boolean
   matched: boolean
 }
-export type OnBackCardPressType = (number) => void

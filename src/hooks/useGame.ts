@@ -1,29 +1,22 @@
 import { useState, useEffect } from 'react'
-import { type ICardInfo, type OnBackCardPressType } from '../types'
-import EMOJI_LIST from '../utils/emojis'
-import { getShuffledArray } from '../utils'
+import { type ICardInfo } from '../types'
+import { getInitialCardsInfo } from '../utils/cardsInfo'
+import { getCardsInfoFromStorage, saveCardsInfoToStorage } from '../utils/storage'
 
 interface IUseGame {
   cardsInfo: ICardInfo[]
-  onBackCardPress: OnBackCardPressType
+  onBackCardPress: (id: number) => void
   resetCardsInfo: () => void
 }
 
-const getShuffleCardsInfo = (): ICardInfo[] => {
-  const suffledEmojiList = getShuffledArray(EMOJI_LIST)
-  const initalCardsInfo: ICardInfo[] = suffledEmojiList.map((emoji, index) => ({
-    id: index + 1,
-    emoji,
-    isVisible: false,
-    matched: false
-  }))
-
-  return initalCardsInfo
-}
-
 const useGame = (): IUseGame => {
-  const shuffledCardsInfo = getShuffleCardsInfo()
-  const [cardsInfo, setCardsInfo] = useState(shuffledCardsInfo)
+  const initialCardsInfo = getInitialCardsInfo()
+  const [cardsInfo, setCardsInfo] = useState(() => getCardsInfoFromStorage(initialCardsInfo))
+
+  const setCardsInfoAndStorage = (cardsInfo: ICardInfo[]): void => {
+    setCardsInfo(cardsInfo)
+    saveCardsInfoToStorage(cardsInfo)
+  }
 
   useEffect(() => {
     const unflipUnmatchedCardsInfo = (): void => {
@@ -31,7 +24,7 @@ const useGame = (): IUseGame => {
         return !cardInfo.matched ? { ...cardInfo, isVisible: false } : cardInfo
       })
 
-      setCardsInfo(unmatchedCardsInfo)
+      setCardsInfoAndStorage(unmatchedCardsInfo)
     }
 
     const updateMatchedCardsInfo = (): void => {
@@ -39,7 +32,7 @@ const useGame = (): IUseGame => {
         return (cardInfo.isVisible && !cardInfo.matched) ? { ...cardInfo, matched: true } : cardInfo
       })
 
-      setCardsInfo(updatedCardsInfo)
+      setCardsInfoAndStorage(updatedCardsInfo)
     }
 
     const notMatchedflippedCardsInfo = cardsInfo.filter(cardInfo => cardInfo.isVisible && !cardInfo.matched)
@@ -68,10 +61,10 @@ const useGame = (): IUseGame => {
       return cardInfo.id === id ? { ...cardInfo, isVisible: true } : cardInfo
     })
 
-    setCardsInfo(updatedCardsInfo)
+    setCardsInfoAndStorage(updatedCardsInfo)
   }
 
-  const onBackCardPress: OnBackCardPressType = (id: number) => {
+  const onBackCardPress = (id: number): void => {
     const notMatchedflippedCards = cardsInfo.filter(cardInfo => cardInfo.isVisible && !cardInfo.matched)
 
     if (notMatchedflippedCards.length >= 2) return
@@ -80,9 +73,9 @@ const useGame = (): IUseGame => {
   }
 
   const resetCardsInfo = (): void => {
-    const shuffledCardsInfo = getShuffleCardsInfo()
+    const initialCardsInfo = getInitialCardsInfo()
 
-    setCardsInfo(shuffledCardsInfo)
+    setCardsInfoAndStorage(initialCardsInfo)
   }
 
   return {
