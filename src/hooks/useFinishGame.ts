@@ -1,46 +1,74 @@
 import { useEffect, useState } from 'react'
 import { type ICardInfo } from '../types'
-import { resetStorage } from '../utils/storage'
+import {
+  getRecordTimeFromStorage,
+  removeCardsInfoFromStorage,
+  removeStartTimeFromStorage,
+  saveRecordTimeToStorage
+} from '../utils/storage'
+import { getTimeDifferenceUntilNow } from '../utils'
 
 interface IUseFinishModalParams {
   cardsInfo: ICardInfo[]
+  startTime: Date
   resetCardsInfo: () => void
   restartTime: () => void
-  resetGame: () => void
+  resetPlay: () => void
 }
 
 interface IUseFinishModal {
   isGameFinished: boolean
-  onFinishPressed: () => void
-  onClosePressed: () => void
+  isRecordTime: boolean
+  gameTime: number
+  restartGame: () => void
+  resetGame: () => void
 }
 
 const useFinishGame = ({
   cardsInfo,
+  startTime,
   resetCardsInfo,
   restartTime,
-  resetGame
+  resetPlay
 }: IUseFinishModalParams): IUseFinishModal => {
   const [isGameFinished, setGameFinished] = useState(false)
+  const [gameTime, setTimeGame] = useState(0)
+  const [isRecordTime, setRecordTime] = useState(false)
 
   useEffect(() => {
     const areEveryCardsFlipped = cardsInfo.every(({ matched }) => !!matched)
 
-    if (areEveryCardsFlipped) setGameFinished(true)
-  }, [cardsInfo])
+    if (!areEveryCardsFlipped) return
+
+    // Juego terminado:
+    const lastGameTime = getTimeDifferenceUntilNow(startTime)
+
+    setGameFinished(true)
+    setTimeGame(lastGameTime)
+
+    const recordTime = getRecordTimeFromStorage()
+
+    if (recordTime === null || lastGameTime < recordTime) {
+      setRecordTime(true)
+      saveRecordTimeToStorage(lastGameTime)
+    }
+  }, [cardsInfo, startTime])
 
   return {
     isGameFinished,
-    onFinishPressed: () => {
+    gameTime,
+    isRecordTime,
+    restartGame: () => {
       restartTime()
       resetCardsInfo()
-      resetStorage()
       setGameFinished(false)
+      setRecordTime(false)
+      setTimeGame(0)
     },
-    onClosePressed: () => {
-      resetGame()
-      resetStorage()
-      setGameFinished(false)
+    resetGame: () => {
+      resetPlay()
+      removeCardsInfoFromStorage()
+      removeStartTimeFromStorage()
     }
   }
 }

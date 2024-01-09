@@ -1,35 +1,44 @@
 import { useState } from 'react'
-import { getFormattedGameTime } from '../utils'
-import { getPlayFromStorage, savePlayToStorage } from '../utils/storage'
+import {
+  getPlayFromStorage,
+  getStartTimeFromStorage,
+  savePlayToStorage,
+  saveStartTimeToStorage
+} from '../utils/storage'
 
 interface IUsePlay {
   play: boolean
-  getGameTime: () => string
-  onPlay: () => void
+  startTime: Date
+  startGame: () => void
   restartTime: () => void
-  resetGame: () => void
+  resetPlay: () => void
 }
 
 const usePlay = (): IUsePlay => {
   const [play, setPlay] = useState(() => getPlayFromStorage(false))
-  const [startTime, setStartTime] = useState(new Date())
+  const [startTime, setStartTime] = useState(() => getStartTimeFromStorage(new Date()))
 
   const setPlayAndStorage = (play: boolean): void => {
     setPlay(play)
     savePlayToStorage(play)
   }
 
+  const setStartTimeAndStorage = (startTime: Date): void => {
+    setStartTime(startTime)
+    saveStartTimeToStorage(startTime)
+  }
+
   return {
     play,
-    getGameTime: () => getFormattedGameTime(startTime),
-    onPlay: () => {
+    startTime,
+    startGame: () => {
       setPlayAndStorage(true)
-      setStartTime(new Date())
+      setStartTimeAndStorage(new Date())
     },
     restartTime: () => {
-      setStartTime(new Date())
+      setStartTimeAndStorage(new Date())
     },
-    resetGame: () => {
+    resetPlay: () => {
       setPlayAndStorage(false)
     }
   }
