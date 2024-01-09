@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import throwConfetti from 'canvas-confetti'
 import { type ICardInfo } from '../types'
 import {
   getRecordTimeFromStorage,
@@ -43,6 +44,7 @@ const useFinishGame = ({
     // Juego terminado:
     const lastGameTime = getTimeDifferenceUntilNow(startTime)
 
+    throwConfetti()
     setGameFinished(true)
     setTimeGame(lastGameTime)
 
