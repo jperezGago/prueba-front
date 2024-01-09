@@ -10,7 +10,7 @@ interface IUseFinishModalParams {
 }
 
 interface IUseFinishModal {
-  isModalVisible: boolean
+  isGameFinished: boolean
   onFinishPressed: () => void
   onClosePressed: () => void
 }
@@ -21,26 +21,26 @@ const useFinishGame = ({
   restartTime,
   resetGame
 }: IUseFinishModalParams): IUseFinishModal => {
-  const [isModalVisible, setModalVisible] = useState(false)
+  const [isGameFinished, setGameFinished] = useState(false)
 
   useEffect(() => {
     const areEveryCardsFlipped = cardsInfo.every(({ matched }) => !!matched)
 
-    if (areEveryCardsFlipped) setModalVisible(true)
+    if (areEveryCardsFlipped) setGameFinished(true)
   }, [cardsInfo])
 
   return {
-    isModalVisible,
+    isGameFinished,
     onFinishPressed: () => {
       restartTime()
       resetCardsInfo()
       resetStorage()
-      setModalVisible(false)
+      setGameFinished(false)
     },
     onClosePressed: () => {
       resetGame()
       resetStorage()
-      setModalVisible(false)
+      setGameFinished(false)
     }
   }
 }

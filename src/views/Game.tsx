@@ -10,7 +10,7 @@ interface Props {
 const Game: React.FC<Props> = ({ getGameTime, restartTime, resetGame }) => {
   const { cardsInfo, resetCardsInfo, onBackCardPress } = useGame()
   const {
-    isModalVisible,
+    isGameFinished,
     onFinishPressed,
     onClosePressed
   } = useFinishGame({ cardsInfo, resetCardsInfo, restartTime, resetGame })
@@ -27,7 +27,7 @@ const Game: React.FC<Props> = ({ getGameTime, restartTime, resetGame }) => {
         ))}
       </section>
       {
-        isModalVisible && <FinishModal
+        isGameFinished && <FinishModal
           time={getGameTime()}
           onFinishPressed={onFinishPressed}
           onClosePressed={onClosePressed}
