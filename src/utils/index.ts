@@ -25,7 +25,7 @@ const getFormattedHourFromTotalSeconds = (totalSeconds: number): string => {
   const seconds = Math.floor(totalSeconds % 60)
 
   if (minutes === 0) return `0:${seconds}`
-  if (hours === 0) return `0:${minutes}:${seconds}`
+  if (hours === 0) return `${minutes}:${seconds}`
 
   return `${hours}:${minutes}:${seconds}`
 }
