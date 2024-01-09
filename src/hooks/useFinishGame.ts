@@ -44,7 +44,7 @@ const useFinishGame = ({
     // Juego terminado:
     const lastGameTime = getTimeDifferenceUntilNow(startTime)
 
-    throwConfetti()
+    throwConfetti()?.catch(error => { console.log(error) })
     setGameFinished(true)
     setTimeGame(lastGameTime)
 
