@@ -8,7 +8,7 @@ interface Props {
 
 const Card: React.FC<Props> = ({ cardInfo, onBackCardPress }) => {
   const { id, emoji, isVisible } = cardInfo
-  const classNameBase = 'relative size-[124px] [transform-style:preserve-3d] duration-700'
+  const classNameBase = 'card-container relative [transform-style:preserve-3d] duration-700'
 
   return (
     <div className='[perspective:400px]'>

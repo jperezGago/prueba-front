@@ -13,7 +13,10 @@
 }
 
 @layer components {
+  .card-container {
+    @apply size-20 sm:size-24 lg:size-[124px]
+  }
   .card {
-    @apply size-[124px] border-4 rounded-2xl border-white shadow-aquamarine-uelz shadow-[0px_2px_8px_0px] grid place-content-center cursor-pointer absolute;
+    @apply border-4 rounded-2xl border-white shadow-aquamarine-uelz shadow-[0px_2px_8px_0px] grid place-content-center cursor-pointer absolute;
   }
 }
