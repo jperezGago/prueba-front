@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Game: React.FC<Props> = ({ startTime, restartTime, resetPlay }) => {
-  const { cardsInfo, resetCardsInfo, onBackCardPress } = useGame()
+  const { cardsInfo, resetCardsInfo, updateVisibilityCardsInfo } = useGame()
   const { isGameFinished, isRecordTime, gameTime, restartGame, resetGame } = useFinishGame({
     cardsInfo,
     startTime,
@@ -20,7 +20,10 @@ const Game: React.FC<Props> = ({ startTime, restartTime, resetPlay }) => {
 
   return (
     <main className='min-h-screen bg-green-soft-uelz grid place-content-center'>
-      <Board cardsInfo={cardsInfo} onBackCardPress={onBackCardPress}/>
+      <Board
+        cardsInfo={cardsInfo}
+        onBackCardPress={updateVisibilityCardsInfo}
+      />
       {
         isGameFinished && <FinishModal
           time={getFormattedHourFromTotalSeconds(gameTime)}

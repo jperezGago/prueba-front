@@ -5,7 +5,7 @@ import { getCardsInfoFromStorage, saveCardsInfoToStorage } from '../utils/storag
 
 interface IUseGame {
   cardsInfo: ICardInfo[]
-  onBackCardPress: (id: number) => void
+  updateVisibilityCardsInfo: (id: number) => void
   resetCardsInfo: () => void
 }
 
@@ -18,6 +18,11 @@ const useGame = (): IUseGame => {
     saveCardsInfoToStorage(cardsInfo)
   }
 
+  const getNotMatchedVisibleCards = (cardsInfo: ICardInfo[]): ICardInfo[] => (
+    cardsInfo.filter(cardInfo => cardInfo.isVisible && !cardInfo.matched)
+  )
+
+  // Cada vez que se gira una carta
   useEffect(() => {
     const unflipUnmatchedCardsInfo = (): void => {
       const unmatchedCardsInfo = cardsInfo.map(cardInfo => {
@@ -35,13 +40,13 @@ const useGame = (): IUseGame => {
       setCardsInfoAndStorage(updatedCardsInfo)
     }
 
-    const notMatchedflippedCardsInfo = cardsInfo.filter(cardInfo => cardInfo.isVisible && !cardInfo.matched)
+    const notMatchedVisibleCardsInfo = getNotMatchedVisibleCards(cardsInfo)
 
     // Si no hay 2 cartas giradas:
-    if (notMatchedflippedCardsInfo.length !== 2) return // salimos sin hacer nada
+    if (notMatchedVisibleCardsInfo.length !== 2) return // salimos sin hacer nada
 
     // Si hay 2 cartas giradas:
-    const [card1, card2] = notMatchedflippedCardsInfo
+    const [card1, card2] = notMatchedVisibleCardsInfo
 
     // Si las 2 cartas giradas son distintas:
     if (card1.emoji !== card2.emoji) {
@@ -56,20 +61,19 @@ const useGame = (): IUseGame => {
     updateMatchedCardsInfo() // Se setea el campo matched = true
   }, [cardsInfo])
 
-  const updateCardsInfo = (id: number): void => {
-    const updatedCardsInfo = cardsInfo.map(cardInfo => {
+  // Función ejecutada al pulsar una carta girada
+  const updateVisibilityCardsInfo = (id: number): void => {
+    const notMatchedVisibleCardsInfo = getNotMatchedVisibleCards(cardsInfo)
+
+    // Si ya hay 2 cartas giradas:
+    if (notMatchedVisibleCardsInfo.length >= 2) return
+
+    // Si hay menos de 2 cartas giradas:
+    const updatedVisibilityCardsInfo = cardsInfo.map(cardInfo => {
       return cardInfo.id === id ? { ...cardInfo, isVisible: true } : cardInfo
     })
 
-    setCardsInfoAndStorage(updatedCardsInfo)
-  }
-
-  const onBackCardPress = (id: number): void => {
-    const notMatchedflippedCards = cardsInfo.filter(cardInfo => cardInfo.isVisible && !cardInfo.matched)
-
-    if (notMatchedflippedCards.length >= 2) return
-
-    updateCardsInfo(id)
+    setCardsInfoAndStorage(updatedVisibilityCardsInfo)
   }
 
   const resetCardsInfo = (): void => {
@@ -80,7 +84,7 @@ const useGame = (): IUseGame => {
 
   return {
     cardsInfo,
-    onBackCardPress,
+    updateVisibilityCardsInfo,
     resetCardsInfo
   }
 }

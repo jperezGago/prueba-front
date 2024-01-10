@@ -39,6 +39,7 @@ const useFinishGame = ({
   useEffect(() => {
     const areEveryCardsFlipped = cardsInfo.every(({ matched }) => !!matched)
 
+    // Si no están giradas todas las cartas:
     if (!areEveryCardsFlipped) return
 
     // Juego terminado:
