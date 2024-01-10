@@ -1,31 +1,5 @@
 # Prueba técnica
 
-El objetivo de esta prueba es conocer un poco mejor cómo trabajas, las buenas prácticas que sigues y tu atención por el
-detalle. Valoraremos la sencillez, facilidad para entender el código y la robustez.
-Aspectos que nos facilitan asegurar la calidad, revisar, modificar y mantener el código.
-
-Para realizar el ejercicio te proporcionaremos un proyecto inicial de react en el que debes crear el diseño publicado en
-este enlace de figma
-
-[Figma](https://www.figma.com/file/rUw71oRzI6UfR7CaiE06CJ/Test-Figma?type=design&node-id=2%3A5&mode=design&t=qkQfEvMTWvGIuRjD-1)
-
-Para poder habilitar el modo dev tienes que crear una cuenta en figma. Puedes usar el login social si te parece más sencillo.
-
-Tienes que activar el interruptor que se encuentra a la derecha de "Share"
-
-![modo-dev.png](modo-dev.png)
-
-Cuando inicies la prueba técnica debes crearte un nuevo repositorio en github y pasarnos el enlace
-al correo <a href="mailto:dev@uelzpay.com">dev@uelzpay.com</a>. Tambien nos puedes mandar una invitación a tu repositorio a tecnologia@uelzpay.com y a irene@uelzpay.com
-
-Te sugerimos que empieces implementando la mecánica básica del ejercicio y posteriormente añadas los detalles y mejoras
-que consideres, de esta manera tendrás algo revisable aunque se te acabe el tiempo.
-
-Se van a valorar todas las buenas prácticas que conozcas, pero no pierdas el foco de entregar un proyecto con un juego
-funcional. También se valorará el uso que hagas de git, ramas, estilo de los commits, etc.
-
-Valoraremos positivamente que hagas uso de tailwind para la parte visual y que uses react query en algún punto de la prueba
-
 ## Descripción del ejercicio
 
 Se trata de implementar un juego clásico; el memory. La mecánica es bastante sencilla:
@@ -41,6 +15,49 @@ imágenes que se colocan de forma aleatoria en cada tirada. Puedes descubrir dos
 ## Pasos para preparar el entorno para realizar la prueba
 
 1) Es necesario tener instalado node >= 10 y yarn.
-2) Clonas este repo
-3) Ejecutas "yarn" en la carpeta del proyecto
-4) Ejecutas "yarn start" para comenzar a desarrollar en http://localhost:3000
+2) Clonas este repo.
+3) Ejecutas "yarn" en la carpeta del proyecto.
+4) Ejecutas "yarn dev" para comenzar a desarrollar en http://localhost:3000.
+
+## Ramas
+
+* `Main`.
+
+*Se ha usado una rama por cada tarea implementada. Dividiendo la aplicación en pequeñas parcelas de UI y la posterior integración de las mismas.
+
+## Linter y formateador 🕵️‍♂️
+
+* `Eslint` como linter
+* `Standard TS` como formateador de código
+
+## Arquitectura de carpetas y guía de estilo de la aplicación 📂
+
+* `assets`: assets de la aplicación. Imágenes de los emojis.
+* `views`: vistas de la aplicación. Componentes contenedores de cada una de las vistas, la cual se comunica con los hooks para obtener la lógica de la misma.
+* `componentes`: todos los componentes que conforman las vistas de la aplicación. Estos componentes deberían ser lo más dummies posible, sólo con lógica de renderizado si es necesaria, sin nada de lógica de negocio y lo más reutilizables posible. 
+* `hooks`: custom hooks de la aplicación. Toda la lógica de negocio y reutilizable por los componentes de la aplicación.
+* `utils`: funcionalidades independiente y consumida por los hooks para simplificar la lógica de negocio.
+* `index.css`: estilos globales de la aplicación.
+
+## Commits 🗒️
+
+La estrategia seguida se basa en usar como prefijo el nombre de la rama, que describe la funcionalidad que acomete.
+
+## UI 💅
+
+* Se ha utilizado `Tailwind` como se recomendaba en el README.
+* Se ha usado `Fontsource` como instalador de fuentes.
+
+## Funcionalidades extras implementadas 😮‍💨
+
+* `Diseño responsive` en la vista del tablero de juego.
+* `Persistencia del juego`: por las caracterísiticas de la aplicación, he visto interesante persisitir los datos de la evolución de la partida. Como en el diseño no hay ningún botón para resetar el juego, he usado `localSession` para poder resetear la partida cerrando la pestaña o ventana.
+* `Sistema de ranking`: al finalizar cada partida, también se persiste el tiempo demorado. Si se consigue finalizar en menor tiempo que el record histótico, 
+en la modal aparecerá el mensaje `¡Enhorabuena, nuevo record!` en vez del mensaje `¡Lo has conseguido!` que se mostrará si no se consigue superar.
+* `Animación de giro de cartas`.
+* `Confetti` para celebrar el triunfo 🎉
+
+## Tecnologías no implementadas 💥
+
+* `React Query` ya que no existe gestión de estado asíncrono.
+* `Estado global` ya que probablemente añadiría más complejidad que problemas solucionaría, debido al tamaño de la aplicación.
